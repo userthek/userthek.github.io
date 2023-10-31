@@ -61,11 +61,6 @@ int main(int argc, char *argv[]) {
     long long N1 = atoll(argv[1]); // Μετατροπή της πρώτης εισόδου σε ακέραιο.
     long long N2 = atoll(argv[2]); // Μετατροπή της δεύτερης εισόδου σε ακέραιο.
 
-    if (N1 <= 0 || N2 > MAX_N || N1 < -MAX_N || N2 < -MAX_N) {
-        printf("0\n"); // Έλεγχος για έγκυρα όρια. Εάν δεν είναι έγκυρα, το πρόγραμμα τυπώνει "0" και τερματίζει με κωδικό λάθους.
-        return 1;
-    }
-
     long long *memo = (long long *)calloc(MAX_N + 1, sizeof(long long));
 
     if (memo == NULL) {
@@ -80,6 +75,7 @@ int main(int argc, char *argv[]) {
 
     return 0; // Ολοκλήρωση του προγράμματος χωρίς σφάλματα.
 }
+
 
 
 
