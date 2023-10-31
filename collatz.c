@@ -3,28 +3,14 @@
 
 #define MAX_N 100000000
 
-// Συνάρτηση που υπολογίζει το μέγιστο μήκος της ακολουθίας Collatz για αριθμούς από N1 έως N2
-long long maxCollatzLength(long long N1, long long N2, long long *memo) {
-    long long maxLen = 0;
-
-    for (long long i = N1; i <= N2; i++) {
-        long long length = collatzLength(i, memo);
-        if (length > maxLen) {
-            maxLen = length;
-        }
-    }
-
-    return maxLen;
-}
-
-// Υπόλογος του μήκους της ακολουθίας Collatz για έναν αριθμό N
+// Συνάρτηση που υπολογίζει το μήκος της ακολουθίας Collatz για έναν αριθμό N
 long long collatzLength(long long N, long long *memo) {
     if (N == 1) {
-        return 1; // Η ακολουθία Collatz για το 1 έχει μήκος 1.
+        return 1;
     }
 
     if (N <= MAX_N && memo[N] != 0) {
-        return memo[N]; // Εάν έχουμε ήδη υπολογίσει το μήκος, το επιστρέφουμε από τον πίνακα memo.
+        return memo[N];
     }
 
     long long length = 1;
@@ -45,37 +31,45 @@ long long collatzLength(long long N, long long *memo) {
     }
 
     if (originalN <= MAX_N) {
-        // Αποθηκεύουμε το μήκος για τον αρχικό αριθμό στον πίνακα memo.
+        // Αποθηκεύουμε το μήκος για τον αρχικό αριθμό
         memo[originalN] = length;
     }
 
-    return length; // Επιστρέφουμε το μήκος της ακολουθίας Collatz.
+    return length;
 }
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         printf("Usage: %s <N1> <N2>\n", argv[0]);
-        return 1; // Έλεγχος για τον σωστό αριθμό εισόδων. Αν δεν είναι σωστός, το πρόγραμμα εξέρχεται με κωδικό λάθους.
+        return 1;
     }
 
-    long long N1 = atoll(argv[1]); // Μετατροπή της πρώτης εισόδου σε ακέραιο.
-    long long N2 = atoll(argv[2]); // Μετατροπή της δεύτερης εισόδου σε ακέραιο.
+    long long N1 = atoll(argv[1]);
+    long long N2 = atoll(argv[2);
+
+    if (N1 <= 0 || N2 <= 0 || N1 > MAX_N || N2 > MAX_N) {
+        printf("Input numbers must be positive and within the acceptable range.\n");
+        return 1;
+    }
 
     long long *memo = (long long *)calloc(MAX_N + 1, sizeof(long long));
 
     if (memo == NULL) {
         printf("Memory allocation error\n");
-        return 1; // Έλεγχος για σφάλμα κατά την εκχώρηση μνήμης. Εάν υπάρχει σφάλμα, το πρόγραμμα τυπώνει "Memory allocation error" και τερματίζει με κωδικό λάθους.
+        return 1;
     }
 
-    long long maxLen = maxCollatzLength(N1, N2, memo);
-    printf("%lld\n", maxLen); // Τύπωση του μέγιστου μήκους της ακολουθίας Collatz.
+    long long maxCollatzLength = 0;
+    for (long long i = N1; i <= N2; i++) {
+        long long length = collatzLength(i, memo);
+        if (length > maxCollatzLength) {
+            maxCollatzLength = length;
+        }
+    }
 
-    free(memo); // Απελευθέρωση της δεσμευμένης μνήμης.
+    printf("%lld\n", maxCollatzLength);
 
-    return 0; // Ολοκλήρωση του προγράμματος χωρίς σφάλματα.
+    free(memo);
+
+    return 0;
 }
-
-
-
-
