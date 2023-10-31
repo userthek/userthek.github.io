@@ -52,10 +52,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (N1 < 0) {
-        N1 = 1; // Εάν ο πρώτος αριθμός είναι αρνητικός, τον αλλάζουμε σε 1, όπως απαιτείται.
-    }
-
     long long *memo = (long long *)calloc(MAX_N + 1, sizeof(long long));
 
     if (memo == NULL) {
