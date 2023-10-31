@@ -3,7 +3,21 @@
 
 #define MAX_N 100000000
 
-// Συνάρτηση που υπολογίζει το μήκος της ακολουθίας Collatz για έναν αριθμό N
+// Συνάρτηση που υπολογίζει το μέγιστο μήκος της ακολουθίας Collatz για αριθμούς από N1 έως N2
+long long maxCollatzLength(long long N1, long long N2, long long *memo) {
+    long long maxLen = 0;
+
+    for (long long i = N1; i <= N2; i++) {
+        long long length = collatzLength(i, memo);
+        if (length > maxLen) {
+            maxLen = length;
+        }
+    }
+
+    return maxLen;
+}
+
+// Υπόλογος του μήκους της ακολουθίας Collatz για έναν αριθμό N
 long long collatzLength(long long N, long long *memo) {
     if (N == 1) {
         return 1; // Η ακολουθία Collatz για το 1 έχει μήκος 1.
@@ -59,19 +73,13 @@ int main(int argc, char *argv[]) {
         return 1; // Έλεγχος για σφάλμα κατά την εκχώρηση μνήμης. Εάν υπάρχει σφάλμα, το πρόγραμμα τυπώνει "Memory allocation error" και τερματίζει με κωδικό λάθους.
     }
 
-    long long maxCollatzLength = 0;
-    for (long long i = N1; i <= N2; i++) {
-        long long length = collatzLength(i, memo); // Κλήση της συνάρτησης collatzLength για κάθε αριθμό από N1 έως N2.
-        if (length > maxCollatzLength) {
-            maxCollatzLength = length; // Κρατάμε το μέγιστο μήκος της ακολουθίας Collatz.
-        }
-    }
-
-    printf("%lld\n", maxCollatzLength); // Τύπωση του μέγιστου μήκους της ακολουθίας Collatz.
+    long long maxLen = maxCollatzLength(N1, N2, memo);
+    printf("%lld\n", maxLen); // Τύπωση του μέγιστου μήκους της ακολουθίας Collatz.
 
     free(memo); // Απελευθέρωση της δεσμευμένης μνήμης.
 
     return 0; // Ολοκλήρωση του προγράμματος χωρίς σφάλματα.
 }
+
 
 
